@@ -6,7 +6,7 @@ void App::InitLibraries()
 
     // SDL:
 
-    if (!SDL_Init(SDL_INIT_VIDEO))
+    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
     {
         std::cout << SDL_GetError() << std::endl;
     }
@@ -40,9 +40,11 @@ void App::Init()
     App::FrameCount = 0;
     App::FpsTimer.Start();
 
-    Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 4096);
+    Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
 
     App::LoadGraphics();
+    App::LoadMusics();
+    App::LoadSounds();
 }
 
 void App::ClearLibraries()
@@ -71,16 +73,20 @@ void App::Quit()
     SDL_DestroyTexture(SpritesheetTexture);
     
     // AUDIO
-    Mix_CloseAudio();
-
+    
     for (Mix_Music* music : App::Musics)
     {
-        music = NULL;
+        Mix_FreeMusic(music);
+        //music = NULL;
     }
     for (Mix_Chunk* sound : App::Sounds)
     {
-        sound = NULL;
+        Mix_FreeChunk(sound);
+        //sound = NULL;
     }
+
+    Mix_CloseAudio();
+    SDL_QuitSubSystem(SDL_INIT_AUDIO);
 
     // LIBRARIES
     ClearLibraries();
@@ -110,6 +116,9 @@ void App::InputManager()
                     }
                 }
                 break;
+            case SDLK_2:
+                App::PlaySound(Sounds[15], 0, 0, true);
+                break;
             }
             break;
         case SDL_QUIT:
@@ -121,12 +130,12 @@ void App::InputManager()
 
 Mix_Chunk* App::LoadSoundFile(std::string fileName)
 {
-    return (Mix_Chunk*)Mix_LoadMUS((ResourcePaths.Sounds + fileName).c_str());
+    return (Mix_Chunk*)Mix_LoadWAV((ResourcePaths.Sounds + fileName).c_str());
 }
 
 Mix_Music* App::LoadMusicFile(std::string fileName)
 {
-    return Mix_LoadMUS((ResourcePaths.Musics + fileName).c_str());
+    return (Mix_Music*)Mix_LoadWAV((ResourcePaths.Musics + fileName).c_str());
 }
 
 void App::LoadMusics()
@@ -159,12 +168,12 @@ void App::LoadSounds()
     App::Sounds[1] = LoadSoundFile(SoundFiles.MMGun);
     App::Sounds[2] = LoadSoundFile(SoundFiles.MMFlame);
     App::Sounds[3] = LoadSoundFile(SoundFiles.MMPulse);
-    App::Sounds[4] = LoadSoundFile(SoundFiles.MMDisc);
+    App::Sounds[9] = LoadSoundFile(SoundFiles.MMLaser);
     App::Sounds[5] = LoadSoundFile(SoundFiles.MMMGun);
     App::Sounds[6] = LoadSoundFile(SoundFiles.ZGun);
     App::Sounds[7] = LoadSoundFile(SoundFiles.ZSword);
+    App::Sounds[4] = LoadSoundFile(SoundFiles.ZDisc);
     App::Sounds[8] = LoadSoundFile(SoundFiles.ZPulse);
-    App::Sounds[9] = LoadSoundFile(SoundFiles.ZLaser);
     App::Sounds[10] = LoadSoundFile(SoundFiles.ZCannon);
     App::Sounds[11] = LoadSoundFile(SoundFiles.PCharging);
     App::Sounds[12] = LoadSoundFile(SoundFiles.PJump);
@@ -192,6 +201,8 @@ void App::PlayMusic(Mix_Music* Music, int Volume, float TimePosition, bool Force
         Mix_PlayMusic(App::CurrentMusic, 1);
         App::MusicIsPlaying = true;
     }
+    std::cout << Music << std::endl;
+    //std::cout << MusicIsPlaying << " " << ForcePlay << std::endl;
 }
 
 void App::PlaySound(Mix_Chunk* Sound, int Volume, float TimePosition, bool ForcePlay)

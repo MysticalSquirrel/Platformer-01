@@ -18,44 +18,45 @@ const struct ResourcePaths
 const struct MusicFiles
 {
     std::string Test = "test.ogg";
-    std::string MainTheme = "test.ogg";
-    std::string Level1 = "test.ogg";
-    std::string Level2 = "test.ogg";
-    std::string Level3 = "test.ogg";
-    std::string Level4 = "test.ogg";
-    std::string Level5 = "test.ogg";
-    std::string Level6 = "test.ogg";
-    std::string Level7 = "test.ogg";
-    std::string Level8 = "test.ogg";
-    std::string Level9 = "test.ogg";
-    std::string Bonus = "test.ogg";
-    std::string Credits = "test.ogg";
-    std::string Victory = "test.ogg";
-    std::string GameOver = "test.ogg";
-    std::string Evolving = "test.ogg";
+    std::string MainTheme = "MainTheme.ogg";
+    std::string Level1 = "Level1.ogg";
+    std::string Level2 = "Level2.ogg";
+    std::string Level3 = "Level3.ogg";
+    std::string Level4 = "Level4.ogg";
+    std::string Level5 = "Level5.ogg";
+    std::string Level6 = "Level6.ogg";
+    std::string Level7 = "Level7.ogg";
+    std::string Level8 = "Level8.ogg";
+    std::string Level9 = "Level9.ogg";
+    std::string Bonus = "Bonus.ogg";
+    std::string Credits = "Credits.ogg";
+    std::string Victory = "Victory.ogg";
+    std::string GameOver = "GameOver.ogg";
+    std::string Evolving = "Evolving.ogg";
 } MusicFiles;
 
 const struct SoundFiles
 {
     std::string Test = "test.ogg";
-    std::string MMGun = "test.ogg";
-    std::string MMFlame = "test.ogg";
-    std::string MMPulse = "test.ogg";
-    std::string MMDisc = "test.ogg";
-    std::string MMMGun = "test.ogg";
-    std::string ZGun = "test.ogg";
-    std::string ZSword = "test.ogg";
-    std::string ZPulse = "test.ogg";
-    std::string ZLaser = "test.ogg";
-    std::string ZCannon = "test.ogg";
-    std::string PCharging = "test.ogg";
-    std::string PJump = "test.ogg";
-    std::string PDash = "test.ogg";
-    std::string PHurt = "test.ogg";
-    std::string PDeath = "test.ogg";
-    std::string PPickUp = "test.ogg";
-    std::string PEvolve = "test.ogg";
-    std::string PRun = "test.ogg";
+    std::string MMGun = "MMGun.ogg";
+    std::string MMFlame = "MMFlame.ogg";
+    std::string MMPulse = "MMPulse.ogg";
+    std::string MMLaser = "MMLaser.ogg";
+    std::string MMMGun = "MMMGun.ogg";
+    std::string ZGun = "ZGun.ogg";
+    std::string ZSword = "ZSword.ogg";
+    std::string ZDisc = "ZDisc.ogg";
+    std::string ZPulse = "ZPulse.ogg";
+    std::string ZCannon = "ZCannon.ogg";
+    std::string PCharging = "PCharging.ogg";
+    std::string PHoldingCharge = "PHoldingCharge.ogg";
+    std::string PJump = "PJump.ogg";
+    std::string PDash = "PDash.ogg";
+    std::string PHurt = "PHurt.ogg";
+    std::string PDeath = "PDeath.ogg";
+    std::string PPickUp = "PPickUp.ogg";
+    std::string PEvolve = "PEvolve.ogg";
+    std::string PRun = "PRun.ogg";
 } SoundFiles;
 
 const struct SpriteIds
@@ -90,7 +91,7 @@ public:
     Timer CapTimer;
 
     // Audio Variables
-    float GlobalVolume = 10.0f;
+    float GlobalVolume = 20.0f;
     float MusicVolume = 20.0f;
     float MusicCurrentTime = 0.0f;
     bool MusicIsPlaying = false;
