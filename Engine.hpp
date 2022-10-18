@@ -106,13 +106,8 @@ public:
     void PlayMusic(Mix_Music* music, int Volume, float TimePosition, bool ForcePlay);
     void PlaySound(Mix_Chunk* sound, int Volume, float TimePosition, bool ForcePlay);
 
-    Mix_Music* Musics[20];
-    Mix_Chunk* Sounds[20];
-
     Mix_Chunk* LoadSoundFile(std::string fileName);
     Mix_Music* LoadMusicFile(std::string fileName);
-    void LoadMusics();
-    void LoadSounds();
 
     // Graphics Stuff
     
