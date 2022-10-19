@@ -125,18 +125,18 @@ public:
 
     // Audio Variables
 
-    float GlobalVolume = 20.0f;
-    float MusicVolume = 20.0f;
+    float GlobalVolume = 10.0f;
+    float MusicVolume = 10.0f;
     float MusicCurrentTime = 0.0f;
     bool MusicIsPlaying = false;
     Mix_Music *CurrentMusic = NULL;
     Mix_Music *CurrentMusicHighRes = NULL;
-    float SoundsVolume = 20.0f;
+    float SoundsVolume = 10.0f;
     bool SoundIsPlaying = false;
     Mix_Chunk *CurrentSound = NULL;
     Mix_Chunk *CurrentSoundHighRes = NULL;
 
-    float GlobalMusicVolume();
+    float GlobalMusicVolume(bool IsMusic);
     void PlayMusic(Mix_Music* music, int Volume, float TimePosition, bool ForcePlay);
     void PlaySound(Mix_Chunk* sound, int Volume, float TimePosition, bool ForcePlay);
 

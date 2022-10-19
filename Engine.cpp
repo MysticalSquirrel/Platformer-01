@@ -131,9 +131,16 @@ Mix_Music* App::LoadMusicFile(std::string fileName)
     return (Mix_Music*)Mix_LoadMUS((ResourcePaths.Musics + fileName).c_str());
 }
 
-float App::GlobalMusicVolume()
+float App::GlobalMusicVolume(bool IsMusic)
 {
-    return (App::MusicVolume * (App::GlobalVolume / 100));
+    if (IsMusic == true)
+    {
+        return (App::MusicVolume * (App::GlobalVolume / 100));
+    }
+    else
+    {
+        return (App::SoundsVolume * (App::GlobalVolume / 100));
+    }
 }
 
 void App::PlayMusic(Mix_Music* Music, int Volume, float TimePosition, bool ForcePlay)
@@ -143,7 +150,7 @@ void App::PlayMusic(Mix_Music* Music, int Volume, float TimePosition, bool Force
         //Mix_PauseMusic();
         Mix_FreeMusic(App::CurrentMusic);
         App::CurrentMusic = Music;
-        Mix_VolumeMusic((int)GlobalMusicVolume());
+        Mix_VolumeMusic((int)GlobalMusicVolume(true));
         if (CurrentMusic != NULL)
         {
             Mix_PlayMusic(App::CurrentMusic, -1);
@@ -163,7 +170,7 @@ void App::PlaySound(Mix_Chunk* Sound, int Volume, float TimePosition, bool Force
             //Mix_Pause(0);
             Mix_FreeChunk(App::CurrentSound);
             App::CurrentSound = Sound;
-            Mix_VolumeChunk(App::CurrentSound,(int)GlobalMusicVolume());
+            Mix_VolumeChunk(App::CurrentSound,(int)GlobalMusicVolume(false));
             if (CurrentSound != NULL)
             {
                 Mix_PlayChannel(0, App::CurrentSound, 0);
