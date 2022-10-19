@@ -28,7 +28,7 @@ void App::InitLibraries()
 
     // SDL_MIXER:
 
-    if (!(Mix_Init(MIX_INIT_OGG)))
+    if (!(Mix_Init(AUDIO_S16SYS)))
     {
         std::cout << Mix_GetError() << std::endl;
     }
@@ -40,7 +40,7 @@ void App::Init()
     App::FrameCount = 0;
     App::FpsTimer.Start();
 
-    Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
+    Mix_OpenAudio(48000, AUDIO_F32SYS, 2, 4096);
 
     App::LoadGraphics();
 }
@@ -108,6 +108,10 @@ void App::InputManager()
             case SDLK_2:
                 App::PlaySound(App::LoadSoundFile(SoundFiles.PDeath), 0, 0, true);
                 break;
+            case SDLK_3:
+                App::PlayMusic(App::LoadMusicFile(MusicFiles.Test), 0, 0, false);
+                
+                break;
             }
             break;
         case SDL_QUIT:
@@ -124,7 +128,7 @@ Mix_Chunk* App::LoadSoundFile(std::string fileName)
 
 Mix_Music* App::LoadMusicFile(std::string fileName)
 {
-    return (Mix_Music*)Mix_LoadWAV((ResourcePaths.Musics + fileName).c_str());
+    return (Mix_Music*)Mix_LoadMUS((ResourcePaths.Musics + fileName).c_str());
 }
 
 float App::GlobalMusicVolume()
@@ -136,14 +140,17 @@ void App::PlayMusic(Mix_Music* Music, int Volume, float TimePosition, bool Force
 {
     if (App::MusicIsPlaying == false || ForcePlay == true)
     {
-        Mix_PauseMusic();
+        //Mix_PauseMusic();
         Mix_FreeMusic(App::CurrentMusic);
         App::CurrentMusic = Music;
         Mix_VolumeMusic((int)GlobalMusicVolume());
-        Mix_PlayMusic(App::CurrentMusic, 1);
+        if (CurrentMusic != NULL)
+        {
+            Mix_PlayMusic(App::CurrentMusic, -1);
+        }
         App::MusicIsPlaying = true;
     }
-    std::cout << Music << std::endl;
+    //std::cout << Music << std::endl;
     //std::cout << MusicIsPlaying << " " << ForcePlay << std::endl;
 }
 
@@ -153,10 +160,10 @@ void App::PlaySound(Mix_Chunk* Sound, int Volume, float TimePosition, bool Force
     {
         if (App::SoundIsPlaying == false || ForcePlay == true)
         {
-            Mix_Pause(0);
+            //Mix_Pause(0);
             Mix_FreeChunk(App::CurrentSound);
             App::CurrentSound = Sound;
-            Mix_VolumeMusic((int)GlobalMusicVolume());
+            Mix_VolumeChunk(App::CurrentSound,(int)GlobalMusicVolume());
             if (CurrentSound != NULL)
             {
                 Mix_PlayChannel(0, App::CurrentSound, 0);
@@ -199,6 +206,14 @@ void App::LoadClips()
         }
     }
     //std::cout << ClipRects[0]->x + " " << ClipRects[0]->y + " " << ClipRects[0]->w + " " << ClipRects[0]->h<< std::endl;
+}
+
+bool App::LoadMap(Map map)
+{
+    bool result = false;
+
+
+    return result;
 }
 
 SDL_Surface* App::LoadGraphicFile(std::string fileName)

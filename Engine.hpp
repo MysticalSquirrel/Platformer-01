@@ -13,50 +13,51 @@ const struct ResourcePaths
     std::string Audio = "Resources\\Audio\\";
     std::string Musics = "Resources\\Audio\\Musics\\";
     std::string Sounds = "Resources\\Audio\\Sounds\\";
+    std::string Maps = "Resources\\Maps\\";
 } ResourcePaths;
 
 const struct MusicFiles
 {
-    std::string Test = "test.ogg";
-    std::string MainTheme = "MainTheme.ogg";
-    std::string Level1 = "Level1.ogg";
-    std::string Level2 = "Level2.ogg";
-    std::string Level3 = "Level3.ogg";
-    std::string Level4 = "Level4.ogg";
-    std::string Level5 = "Level5.ogg";
-    std::string Level6 = "Level6.ogg";
-    std::string Level7 = "Level7.ogg";
-    std::string Level8 = "Level8.ogg";
-    std::string Level9 = "Level9.ogg";
-    std::string Bonus = "Bonus.ogg";
-    std::string Credits = "Credits.ogg";
-    std::string Victory = "Victory.ogg";
-    std::string GameOver = "GameOver.ogg";
-    std::string Evolving = "Evolving.ogg";
+    std::string Test = "test.wav";
+    std::string MainTheme = "MainTheme.wav";
+    std::string Level1 = "Level1.wav";
+    std::string Level2 = "Level2.wav";
+    std::string Level3 = "Level3.wav";
+    std::string Level4 = "Level4.wav";
+    std::string Level5 = "Level5.wav";
+    std::string Level6 = "Level6.wav";
+    std::string Level7 = "Level7.wav";
+    std::string Level8 = "Level8.wav";
+    std::string Level9 = "Level9.wav";
+    std::string Bonus = "Bonus.wav";
+    std::string Credits = "Credits.wav";
+    std::string Victory = "Victory.wav";
+    std::string GameOver = "GameOver.wav";
+    std::string Evolving = "Evolving.wav";
 } MusicFiles;
 
 const struct SoundFiles
 {
-    std::string Test = "test.ogg";
-    std::string MMGun = "MMGun.ogg";
-    std::string MMFlame = "MMFlame.ogg";
-    std::string MMPulse = "MMPulse.ogg";
-    std::string MMLaser = "MMLaser.ogg";
-    std::string MMMGun = "MMMGun.ogg";
-    std::string ZGun = "ZGun.ogg";
-    std::string ZSword = "ZSword.ogg";
-    std::string ZDisc = "ZDisc.ogg";
-    std::string ZPulse = "ZPulse.ogg";
-    std::string ZCannon = "ZCannon.ogg";
-    std::string PCharging = "PCharging.ogg";
-    std::string PHoldingCharge = "PHoldingCharge.ogg";
-    std::string PJump = "PJump.ogg";
-    std::string PDash = "PDash.ogg";
-    std::string PHurt = "PHurt.ogg";
-    std::string PDeath = "PDeath.ogg";
-    std::string PPickUp = "PPickUp.ogg";
-    std::string PEvolve = "PEvolve.ogg";
-    std::string PRun = "PRun.ogg";
+    std::string Test = "test.wav";
+    std::string MMGun = "MMGun.wav";
+    std::string MMFlame = "MMFlame.wav";
+    std::string MMPulse = "MMPulse.wav";
+    std::string MMLaser = "MMLaser.wav";
+    std::string MMMGun = "MMMGun.wav";
+    std::string ZGun = "ZGun.wav";
+    std::string ZSword = "ZSword.wav";
+    std::string ZDisc = "ZDisc.wav";
+    std::string ZPulse = "ZPulse.wav";
+    std::string ZCannon = "ZCannon.wav";
+    std::string PCharging = "PCharging.wav";
+    std::string PHoldingCharge = "PHoldingCharge.wav";
+    std::string PJump = "PJump.wav";
+    std::string PDash = "PDash.wav";
+    std::string PHurt = "PHurt.wav";
+    std::string PDeath = "PDeath.wav";
+    std::string PPickUp = "PPickUp.wav";
+    std::string PEvolve = "PEvolve.wav";
+    std::string PRun = "PRun.wav";
 } SoundFiles;
 
 const struct SpriteIds
@@ -69,7 +70,39 @@ const struct SpriteIds
     int PlayerAnim5 = 5;
     int PlayerAnim6 = 6;
     int PlayerAnim7 = 7;
+} SpriteIds;
+
+const struct Maps
+{
+    std::string Level1 = "Level1.map";
+    std::string Level2 = "Level2.map";
+    std::string Level3 = "Level3.map";
+    std::string Level4 = "Level4.map";
+    std::string Level5 = "Level5.map";
+    std::string Level6 = "Level6.map";
+    std::string Level7 = "Level7.map";
+    std::string Level8 = "Level8.map";
+    std::string Level9 = "Level9.map";
+    std::string Bonus = "Bonus.map";
+} Maps;
+
+struct Tile
+{
+    int Id = 0;
+    SDL_Rect Clip;
 };
+
+struct Map
+{
+    int Id = 0;
+    std::string Name = "";
+    std::string Music = "";
+};
+
+const struct MapTileIds
+{
+    int test = 0;
+} MapTileIds;
 
 class App
 {
@@ -91,6 +124,7 @@ public:
     Timer CapTimer;
 
     // Audio Variables
+
     float GlobalVolume = 20.0f;
     float MusicVolume = 20.0f;
     float MusicCurrentTime = 0.0f;
@@ -113,7 +147,7 @@ public:
     
     SDL_Surface* SpritesheetSurface = NULL;
     SDL_Texture* SpritesheetTexture = NULL;
-    SDL_Rect ClipRects[800]{0};
+    SDL_Rect ClipRects[500]{0};
 
     SDL_Surface* Spritesheet = NULL;
     SDL_Point SpritesheetSize{0,0};
@@ -127,6 +161,13 @@ public:
 
     void RenderTexture(SDL_Texture* texture, SDL_Renderer* Renderer, SDL_Rect* Clip, SDL_Point Position);
     void UpdateRender();
+
+    // Map Stuff
+
+    bool LoadMap(Map map);
+
+    Tile Tiles[500]{0};
+
 
     // Engine Stuff
 

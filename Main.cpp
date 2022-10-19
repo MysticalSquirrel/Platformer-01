@@ -50,11 +50,6 @@ int main(int argc, char* argv[])
             SDL_Delay(app.TicksPerFrame - app.FrameTicks);
         }
 
-        if (app.CurrentMusic == NULL)
-        {
-            //app.PlayMusic(app.Musics[0], 0, 0, false);
-        }
-
         app.UpdateRender();
     }
 
