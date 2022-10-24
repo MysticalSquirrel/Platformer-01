@@ -110,7 +110,6 @@ void App::InputManager()
                 break;
             case SDLK_3:
                 App::PlayMusic(App::LoadMusicFile(MusicFiles.Test), 0, 0, false);
-                
                 break;
             }
             break;
