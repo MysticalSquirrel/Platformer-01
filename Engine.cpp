@@ -145,10 +145,15 @@ float App::GlobalMusicVolume(bool IsMusic)
 
 void App::PlayMusic(Mix_Music* Music, int Volume, float TimePosition, bool ForcePlay)
 {
+    if (App::CurrentMusic != NULL)
+    {
+        Mix_FreeMusic(App::CurrentMusic);
+        App::MusicIsPlaying = false;
+    }
     if (App::MusicIsPlaying == false || ForcePlay == true)
     {
         //Mix_PauseMusic();
-        Mix_FreeMusic(App::CurrentMusic);
+        //Mix_FreeMusic(App::CurrentMusic);
         App::CurrentMusic = Music;
         Mix_VolumeMusic((int)GlobalMusicVolume(true));
         if (CurrentMusic != NULL)
@@ -163,12 +168,17 @@ void App::PlayMusic(Mix_Music* Music, int Volume, float TimePosition, bool Force
 
 void App::PlaySound(Mix_Chunk* Sound, int Volume, float TimePosition, bool ForcePlay)
 {
+    if (App::CurrentSound != NULL)
+    {
+        Mix_FreeChunk(App::CurrentSound);
+        SoundIsPlaying = false;
+    }
     if (Sound != NULL)
     {
         if (App::SoundIsPlaying == false || ForcePlay == true)
         {
             //Mix_Pause(0);
-            Mix_FreeChunk(App::CurrentSound);
+            //Mix_FreeChunk(App::CurrentSound);
             App::CurrentSound = Sound;
             Mix_VolumeChunk(App::CurrentSound,(int)GlobalMusicVolume(false));
             if (CurrentSound != NULL)

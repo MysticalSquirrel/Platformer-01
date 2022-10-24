@@ -125,7 +125,7 @@ public:
 
     // Audio Variables
 
-    float GlobalVolume = 10.0f;
+    float GlobalVolume = 50.0f;
     float MusicVolume = 10.0f;
     float MusicCurrentTime = 0.0f;
     bool MusicIsPlaying = false;

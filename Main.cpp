@@ -1,5 +1,9 @@
 #include "Engine.hpp"
 
+/* ENVIRONMENT SETUP
+* Please refer to the GITHUB repository or the README.md file present in the project's main folder.
+*/
+
 /* TODO LIST
 * --- LOAD IMAGE (SPRITESHEET) (DONE)
 * -- SPLIT IMAGE INTO CLIPS (DONE (MIGHT NEED SOME FIXING))
