@@ -33,31 +33,32 @@
 
 int main(int argc, char* argv[])
 {
-    App app;
-    app.Init();
+    App *app = new App();
+    app->Init();
 
 
-    while (app.QuitGame != true)
+    while (app->QuitGame != true)
     {
-        app.CapTimer.Start();
-        app.CurrentFps = app.FrameCount / (app.FpsTimer.GetTicks() / 1000.0f);
-        if (app.CurrentFps > 2000000)
+        app->CapTimer.Start();
+        app->CurrentFps = app->FrameCount / (app->FpsTimer.GetTicks() / 1000.0f);
+        if (app->CurrentFps > 2000000)
         {
-            app.CurrentFps = 0;
+            app->CurrentFps = 0;
         }
 
-        app.FrameCount++;
+        app->FrameCount++;
 
-        app.FrameTicks = app.CapTimer.GetTicks();
-        if (app.FrameTicks < app.TicksPerFrame)
+        app->FrameTicks = app->CapTimer.GetTicks();
+        if (app->FrameTicks < app->TicksPerFrame)
         {
-            SDL_Delay(app.TicksPerFrame - app.FrameTicks);
+            SDL_Delay(app->TicksPerFrame - app->FrameTicks);
         }
 
-        app.UpdateRender();
+        app->UpdateRender();
     }
 
-    app.Quit();
+    app->Quit();
+    delete(app);
     return 0;
 }
 
